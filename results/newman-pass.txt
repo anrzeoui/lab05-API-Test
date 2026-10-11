@@ -1,0 +1,123 @@
+newman
+
+Lab05 API System Test
+
+→ TC01 Setup Student
+  PUT http://localhost:3000/students/B231234567 [200 OK, 178B, 72ms]
+
+→ TC01 Setup Course
+  PUT http://localhost:3000/courses/CS313 [200 OK, 178B, 8ms]
+
+→ TC01 Register
+  POST http://localhost:3000/registrations [201 Created, 202B, 5ms]
+  ✓  Status code is 201
+  ✓  Result is OK
+  ✓  Registration ID exists
+
+→ TC02 Setup Course
+  PUT http://localhost:3000/courses/CS313 [200 OK, 178B, 5ms]
+
+→ TC02 No Student
+  POST http://localhost:3000/registrations [200 OK, 192B, 7ms]
+  ✓  Status code is 200
+  ✓  Result is ERROR_NO_STUDENT
+
+→ TC03 Setup Student
+  PUT http://localhost:3000/students/B231234568 [200 OK, 178B, 5ms]
+
+→ TC03 Setup Course
+  PUT http://localhost:3000/courses/CS313 [200 OK, 178B, 5ms]
+
+→ TC03 Inactive Student
+  POST http://localhost:3000/registrations [200 OK, 198B, 6ms]
+  ✓  Status code is 200
+  ✓  Result is ERROR_INACTIVE_STUDENT
+
+→ TC04 Setup Student
+  PUT http://localhost:3000/students/B231234569 [200 OK, 178B, 10ms]
+
+→ TC04 No Course
+  POST http://localhost:3000/registrations [200 OK, 191B, 9ms]
+  ✓  Status code is 200
+  ✓  Result is ERROR_NO_COURSE
+
+→ TC05 Setup Student
+  PUT http://localhost:3000/students/B231234570 [200 OK, 178B, 8ms]
+
+→ TC05 Setup Course
+  PUT http://localhost:3000/courses/CS313 [200 OK, 178B, 5ms]
+
+→ TC05 Missing Prerequisite
+  POST http://localhost:3000/registrations [200 OK, 215B, 6ms]
+  ✓  Status code is 200
+  ✓  Result is ERROR_PREREQUISITES
+  ✓  Missing contains CS201
+
+→ TC06 Setup Student
+  PUT http://localhost:3000/students/B231234571 [200 OK, 178B, 5ms]
+
+→ TC06 Setup Course
+  PUT http://localhost:3000/courses/CS314 [200 OK, 178B, 5ms]
+
+→ TC06 No Prerequisite
+  POST http://localhost:3000/registrations [201 Created, 202B, 4ms]
+  ✓  Status code is 201
+  ✓  Result is OK
+  ✓  Registration ID exists
+
+→ TC07 Setup Course
+  PUT http://localhost:3000/courses/CS313 [200 OK, 178B, 5ms]
+
+→ TC07 Missing StudentID
+  POST http://localhost:3000/registrations [400 Bad Request, 202B, 4ms]
+  ✓  Status code is 400
+  ✓  Result is ERROR_BAD_REQUEST
+
+→ TC08 Setup Student
+  PUT http://localhost:3000/students/B231234572 [200 OK, 178B, 6ms]
+
+→ TC08 Missing CourseID
+  POST http://localhost:3000/registrations [400 Bad Request, 202B, 5ms]
+  ✓  Status code is 400
+  ✓  Result is ERROR_BAD_REQUEST
+
+→ TC09 Bad JSON
+  POST http://localhost:3000/registrations [400 Bad Request, 199B, 5ms]
+  ✓  Status code is 400
+  ✓  Result is ERROR_BAD_JSON
+
+→ TC10 No Student + No Course
+  POST http://localhost:3000/registrations [200 OK, 192B, 8ms]
+  ✓  Status code is 200
+  ✓  Result is ERROR_NO_STUDENT
+
+→ TC11 Setup Student
+  PUT http://localhost:3000/students/B231234580 [200 OK, 178B, 6ms]
+
+→ TC11 Setup Course
+  PUT http://localhost:3000/courses/CS320 [200 OK, 178B, 3ms]
+
+→ TC11 Inactive + Missing Prerequisite
+  POST http://localhost:3000/registrations [200 OK, 198B, 4ms]
+  ✓  Status code is 200
+  ✓  Result is ERROR_INACTIVE_STUDENT
+
+┌─────────────────────────┬──────────────────┬─────────────────┐
+│                         │         executed │          failed │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              iterations │                1 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│                requests │               25 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│            test-scripts │               11 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│      prerequest-scripts │                0 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              assertions │               25 │               0 │
+├─────────────────────────┴──────────────────┴─────────────────┤
+│ total run duration: 761ms                                    │
+├──────────────────────────────────────────────────────────────┤
+│ total data received: 573B (approx)                           │
+├──────────────────────────────────────────────────────────────┤
+│ average response time: 8ms [min: 3ms, max: 72ms, s.d.: 13ms] │
+└──────────────────────────────────────────────────────────────┘
